@@ -1,0 +1,76 @@
+# Node.js dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by testing tools
+coverage/
+
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Optional npm cache directory
+.npm
+
+# Debug
+*.node
+
+# MacOS specific files
+.DS_Store
+
+# Parcel-bundler cache (if you are using parcel)
+.cache/
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# next.js build output (if using next.js)
+.next/
+
+# nuxt.js build output (if using nuxt.js)
+.nuxt/
+
+# Rollup cache
+.rpt2_cache/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional REPL history
+.node_repl_history
+
+# npm package-lock
+package-lock.json
