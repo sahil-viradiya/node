@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import usersSchema from "./database/schema/users.js";
-import AddAddressSchema from "./database/schema/add.address.js";
 import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
 import addAddress from "./database/schema/add.address.js";
