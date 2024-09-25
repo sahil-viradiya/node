@@ -6,7 +6,7 @@ export const getAddresses = async (req, res) => {
   try {
     const token = req.headers?.authorization?.split(" ")[1];
     if (!token) {
-      return req.status(401).send({ message: "Unauthorized" });
+      return res.status(401).send({ message: "Unauthorized" });
     }
     // console.log(token);
     // const tok = decode(token);
