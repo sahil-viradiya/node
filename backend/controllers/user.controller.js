@@ -11,24 +11,14 @@ export const getUsers = async (req, res) => {
       return res.status(401).send({ message: "Unauthorized" });
     }
 
-    jwt.verify(token, "TESTSTE", (err, decoded) => {
-      if (err) {
-        return res.status(401).send({ message: "Invalid token" });
-      }
-      console.log(decoded);
-      req.user = decoded;
-    });
-
-    console.log("req.user", req.user);
-
-    const user = await User.findOne({ email: req.user.email });
-
+    const user = await User.find();
+    console.log(user);
     return res
       .status(200)
       .send({ data: user, message: "User fetched successfully" });
   } catch (error) {
     console.log(error);
-    res.status(500).send({ message: "Internal server error" });
+    res.status(401).send({ message: error.message || "Internal server error" });
   }
 };
 
@@ -36,6 +26,14 @@ export const registerUser = async (req, res) => {
   try {
     console.log("req.body", req.body);
     if (req.body.email && req.body.password) {
+      // Check if user already exists
+      const user = await User.findOne({
+        email: req.body.email,
+      });
+      if (user) {
+        return res.status(409).send({ message: "User already exists" });
+      }
+      // Create a new user
       const createdUser = await User.create(req.body);
 
       return res
@@ -54,20 +52,20 @@ export const loginUser = async (req, res) => {
   try {
     console.log("Email from request body:", req.body.email); // Check if email is coming correctly
 
-  let user = await User.findOne({
-    email: req.body.email,
-  });
+    let user = await User.findOne({
+      email: req.body.email,
+    });
 
-  console.log("User found:", user); // Check if user is found
+    console.log("User found:", user); // Check if user is found
 
-  if (!user) {
-    return res.status(404).send({ message: "Invalid Email" });
-  }
+    if (!user) {
+      return res.status(404).send({ message: "Invalid Email" });
+    }
 
-  // Compare password after confirming the email exists
-  if (user.password != req.body.password) {
-    return res.status(404).send({ message: "Invalid Password" });
-  } 
+    // Compare password after confirming the email exists
+    if (user.password != req.body.password) {
+      return res.status(404).send({ message: "Invalid Password" });
+    }
 
     const token = jwt.sign({ email: user.email }, "TESTSTE", {
       expiresIn: "24h",

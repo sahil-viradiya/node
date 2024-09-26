@@ -1,13 +1,13 @@
 import jwt from "jsonwebtoken";
 
-export const verifyToken = (token) => {
-  return new Promise((resolve, reject) => {
-    jwt.verify(token, "TESTSTE", (err, decoded) => {
-      if (err) {
-        reject(new Error("Invalid token"));
-      } else {
-        resolve(decoded);
-      }
-    });
-  });
+export const verifyToken = (req, res, next) => {
+  try {
+    const token = req.headers?.authorization?.split(" ")[1];
+    console.log({ token });
+
+    req.user = jwt.verify(token, "TESTSTE");
+    next();
+  } catch (error) {
+    return res.status(401).send({ message: "Invalid token" });
+  }
 };
